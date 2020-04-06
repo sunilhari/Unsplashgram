@@ -1,0 +1,53 @@
+#App {
+ padding: 0;
+ margin: 0;
+ font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+ display: flex;
+ height: 100vh;
+ flex-direction: column;
+ color: slategray;
+}
+
+#App-Header {
+ flex: 0 1 auto;
+ padding: 5px 15px;
+}
+
+#App-Header h1 {
+ letter-spacing: 3px;
+}
+#App-Header h1 a {
+ text-decoration: none;
+ color: slategray;
+}
+
+#App-Main {
+ flex: 1 1 auto;
+}
+
+#App-Main #photos {
+ list-style: none;
+ display: flex;
+ place-items: center;
+ flex-direction: column;
+}
+#App-Main #photos .list-item {
+ margin: 30px;
+ display: flex;
+ place-items: center;
+ flex-direction: column;
+ height: 500px;
+ width: 500px;
+ padding: 20px;
+ border: solid 1px grey;
+}
+#App-Main #photos .list-item img {
+ width: 100%;
+ height: 100%;
+}
+#App-Footer {
+ flex: 0 1 auto;
+}
+
+
+/*# sourceMappingURL=/infinite-scroll.9ad09f98.css.map */
