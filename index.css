@@ -2,15 +2,16 @@
  padding: 0;
  margin: 0;
  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
- display: flex;
  height: 100vh;
- flex-direction: column;
  color: slategray;
 }
 
 #App-Header {
- flex: 0 1 auto;
  padding: 5px 15px;
+ background: lightgrey;
+ height: 10%;
+ display: flex;
+ place-items: center;
 }
 
 #App-Header h1 {
@@ -22,7 +23,7 @@
 }
 
 #App-Main {
- flex: 1 1 auto;
+ height: 90%;
 }
 
 #App-Main #photos {
@@ -30,14 +31,16 @@
  display: flex;
  place-items: center;
  flex-direction: column;
+ overflow: auto;
+ height: 100%;
 }
 #App-Main #photos .list-item {
- margin: 30px;
+ margin: 10px;
  display: flex;
  place-items: center;
  flex-direction: column;
- height: 500px;
- width: 500px;
+ height: 200px;
+ width: 200px;
  padding: 20px;
  border: solid 1px grey;
 }

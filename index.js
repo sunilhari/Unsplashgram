@@ -1,8 +1,9 @@
 const Unsplash = require("unsplash-js").default;
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 
 (function (Unsplash, pageSize) {
  const unsplash = new Unsplash({ accessKey: `${process.env.ACCESS_KEY}` });
+
  const renderStore = [];
  let currentPage = 0;
  function getPhotos(page) {
@@ -20,13 +21,28 @@ const PAGE_SIZE = 5;
    $li.className = `list-item`;
    $img.setAttribute("src", `${urls.regular || ""}`);
    $img.setAttribute("alt", `${alt_description || "photos"}`);
+   $img.setAttribute("loading", "lazy");
    $li.appendChild($img);
    $fragment.appendChild($li);
   });
   $ul.appendChild($fragment);
  }
-
+ function registerEvents() {
+  const $ul = document.getElementById("photos");
+  let scrollTop = window.pageYOffset;
+  $ul.addEventListener("scroll", (event) => {
+   const st = window.pageYOffset || $ul.scrollTop;
+   if (st > scrollTop) {
+    console.log("Down");
+   } else {
+    console.log("Up");
+   }
+   scrollTop = st <= 0 ? 0 : st;
+  });
+ }
+ function renderPlaceHolders() {}
  document.addEventListener("DOMContentLoaded", () => {
+  registerEvents();
   getPhotos(++currentPage).then((photos) => {
    render(photos);
   });
