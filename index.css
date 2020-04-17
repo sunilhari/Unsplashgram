@@ -2,14 +2,12 @@
  padding: 0;
  margin: 0;
  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
- height: 100vh;
  color: slategray;
 }
 
 #App-Header {
  padding: 5px 15px;
  background: lightgrey;
- height: 10%;
  display: flex;
  place-items: center;
 }
@@ -23,7 +21,6 @@
 }
 
 #App-Main {
- height: 90%;
 }
 
 #App-Main #photos {
@@ -31,7 +28,7 @@
  display: flex;
  place-items: center;
  flex-direction: column;
- overflow: auto;
+ overflow: scroll;
  height: 100%;
 }
 #App-Main #photos .list-item {
@@ -39,13 +36,10 @@
  display: flex;
  place-items: center;
  flex-direction: column;
- height: 200px;
- width: 200px;
  padding: 20px;
  border: solid 1px grey;
 }
 #App-Main #photos .list-item img {
- width: 100%;
  height: 100%;
 }
 #App-Footer {

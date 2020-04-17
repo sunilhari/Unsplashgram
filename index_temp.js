@@ -21,7 +21,7 @@ const LIST_SIZE = 20;
  function adjustPaddings(isScrollDown) {
   const currentPaddingTop = getNumFromStyle($root.style.paddingTop);
   const currentPaddingBottom = getNumFromStyle($root.style.paddingBottom);
-  const remPaddingsVal = 100 * (listSize / 2);
+  const remPaddingsVal = 170 * (listSize / 2);
   if (isScrollDown) {
    $root.style.paddingTop = currentPaddingTop + remPaddingsVal + "px";
    $root.style.paddingBottom =
@@ -41,7 +41,7 @@ const LIST_SIZE = 20;
    const { alt_description, urls } = DB[index];
    const id = `list-item-${i}`;
    const $img = document.querySelector(`#${id} img`);
-   $img.setAttribute("src", `${urls.small || ""}`);
+   $img.setAttribute("src", `${urls.regular || ""}`);
    $img.setAttribute("alt", `${alt_description || "photos"}`);
   }
  }
@@ -104,8 +104,8 @@ const LIST_SIZE = 20;
   bottomYRatio = intersectionRatio;
  }
  function addObserver() {
-  const startItem = "list-item-4";
-  const lastItem = `list-item-${listSize - 4}`;
+  const startItem = "list-item-0";
+  const lastItem = `list-item-${listSize - 1}`;
   function observed(items) {
    items.forEach((item) => {
     const { id } = item.target;
