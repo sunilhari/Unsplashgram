@@ -36,6 +36,7 @@ const LIST_SIZE = 20;
  }
 
  function render(firstIndex) {
+  console.log("Render", { firstIndex });
   for (let i = 0; i < listSize; i++) {
    const index = firstIndex + i;
    const { alt_description, urls } = DB[index];
@@ -53,10 +54,9 @@ const LIST_SIZE = 20;
   } else {
    firstIndex = currentIndex - inc;
   }
-  return firstIndex < 0 ? 0 : firstIndex;
+  return firstIndex <= 0 ? 0 : firstIndex;
  }
  function onTopItemIntersect(item) {
-  console.log(currentIndex);
   if (currentIndex === 0) {
    $root.style.paddingTop = "0px";
    $root.style.paddingBottom = "0px";
@@ -79,29 +79,33 @@ const LIST_SIZE = 20;
  }
 
  function onBottomItemIntersect(item) {
+  /* if (currentIndex === DB.length - listSize) {
+   return;
+  } */
   const Y = item.boundingClientRect.top;
   const { intersectionRatio, isIntersecting } = item;
   const isScrollingDown =
    Y < bottomY && intersectionRatio > bottomYRatio && isIntersecting;
   console.log({
-   Y,
-   bottomY,
-   intersectionRatio,
-   bottomYRatio,
-   isIntersecting,
-   isScrollingDown
+   isScrollingDown,
+   details: {
+    Y,
+    bottomY,
+    intersectionRatio,
+    bottomYRatio,
+    isIntersecting
+   }
   });
   if (isScrollingDown) {
    const firstIndex = getFirstIndex(true);
-   adjustPaddings(true);
    currentIndex = firstIndex;
+   adjustPaddings(true);
+   bottomY = Y;
+   bottomYRatio = intersectionRatio;
    fetchData(() => {
-    console.log("Scrolling Down", { DB, firstIndex });
     render(firstIndex);
    });
   }
-  bottomY = Y;
-  bottomYRatio = intersectionRatio;
  }
  function addObserver() {
   const startItem = "list-item-4";
@@ -111,9 +115,9 @@ const LIST_SIZE = 20;
     const { id } = item.target;
     if (id === startItem) {
      onTopItemIntersect(item);
-     console.log("Reached First Item");
+     console.log("First Item");
     } else if (id === lastItem) {
-     console.log("C");
+     console.log("Last Item");
      onBottomItemIntersect(item);
     }
    });
@@ -148,25 +152,24 @@ const LIST_SIZE = 20;
   createList(listSize);
   addObserver();
   fetchData(() => {
-   log();
    render(currentIndex);
   });
  }
 
  function fetchData(cb) {
-  const shouldFetch = currentIndex >= DB.length / 2;
+  const shouldFetch = currentIndex >= DB.length / listSize;
+  console.log({ shouldFetch, currentIndex, DB, length: DB.length });
   if (!shouldFetch) {
    cb && cb();
    return;
   }
   const index = currentIndex === 0 ? 0 : (DB.length % PAGE_SIZE) + 1;
+  console.log({ index });
   getPhotos(index).then((photos) => {
    DB = [...DB, ...photos];
    cb && cb();
+   return;
   });
  }
- const log = () => {
-  console.log({ currentIndex, DB });
- };
  document.addEventListener("DOMContentLoaded", onDOMReady);
 })(Unsplash, PAGE_SIZE, LIST_SIZE);
